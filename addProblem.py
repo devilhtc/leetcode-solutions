@@ -27,4 +27,4 @@ def createProblem(args, verbose = False):
 
 if __name__ == "__main__":
 	allArgs = sys.argv[1:]
-	createProblem(allArgs)
+	createProblem(allArgs, verbose = True)
