@@ -14,12 +14,10 @@ def createDir(dir):
 	if not os.path.exists(dir):
 		os.makedirs(dir)
 
-
 def toHexString(num, hexlen):
 	hexStr = hex(num)
 	hexStr = hexStr[:2] + '0' * (hexlen + 2 -len(hexStr)) +  hexStr[2:]
 	return hexStr
-
 
 def createProblem(args, verbose = False):
 	args = [s.lower() for s in args]
