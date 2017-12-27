@@ -13,6 +13,11 @@ def createFile(filename):
 def createDir(dir):
 	if not os.path.exists(dir):
 		os.makedirs(dir)
+	else:
+		print()
+		print('Problem already documented')
+		print('Quitting program...')
+		quit()
 
 def toHexString(num, hexlen):
 	hexStr = hex(num)
@@ -22,7 +27,7 @@ def toHexString(num, hexlen):
 def createProblem(args, verbose = False):
 	args = [s.lower() for s in args]
 	args = [s.title() for s in args]
-	dirname = toHexString(int(float(args[0])), HEX_LEN) + '_' + args[0]+'.'+'_'.join(args[1:])
+	dirname = toHexString(int(float(args[0])), HEX_LEN) + '_' + args[0].strip('.')+'.'+'_'.join(args[1:])
 	
 	if verbose:
 		print('creating directory: ' + dirname)
