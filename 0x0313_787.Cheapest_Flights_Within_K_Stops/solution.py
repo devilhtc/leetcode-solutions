@@ -24,6 +24,3 @@ class Solution(object):
                 out = dp[t][dst] if out == -1 else min(out, dp[t][dst])
         #print dp
         return out
-        
-                
-        
