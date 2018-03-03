@@ -1,13 +1,10 @@
-# this solution is universally applicable to all arrays
-# not just permutations
-# time complexity is still O(n)
-
 class Solution(object):
     def maxChunksToSorted(self, arr):
         """
         :type arr: List[int]
         :rtype: int
         """
+
         if len(arr) <= 1:
             return len(arr)
         
