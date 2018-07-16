@@ -1,6 +1,7 @@
 # note: this implementation uses list to represent fraction number
-# which might be inefficient 
+# which might be inefficient
 # a better way would be using a struct in C
+
 
 class Solution(object):
     def kthSmallestPrimeFraction(self, A, K):
@@ -9,25 +10,26 @@ class Solution(object):
         :type K: int
         :rtype: List[int]
         """
-           
+
         def minus(a, b):
             return [a[0] * b[1] - a[1] * b[0], a[1] * b[1]]
-        
+
         def get_max(nums):
             m = [nums[0], nums[1]]
             for i in range(1, len(nums) - 1):
-                cur = [nums[i], nums[i+1]]
-                if minus(cur, m)[0] > 0: m = cur
+                cur = [nums[i], nums[i + 1]]
+                if minus(cur, m)[0] > 0:
+                    m = cur
             return m
-        
+
         def ave(a, b):
             return [a[0] * b[1] + a[1] * b[0], a[1] * b[1] * 2]
-        
+
         A = sorted(A)
         l = len(A)
         lo_all = [A[0], A[-1]]
-        hi_all = get_max(A) 
-        
+        hi_all = get_max(A)
+
         # return two closest fraction numbers (in the array) in the form of [p, q, k]
         # one less than or equal to val, one greater than or equal to val
         # basically traversing a 2d grid with elements ordered in rows and columns
@@ -50,7 +52,7 @@ class Solution(object):
                 cur_gap = minus(val, cur_num)
                 if cur_gap[0] == 0:
                     # step right
-                    cover += (l - j)
+                    cover += l - j
                     i += 1
                     cur_lo = cur_num
                     lo_gap = [0, 0]
@@ -58,7 +60,7 @@ class Solution(object):
                     hi_gap = [0, 0]
                 elif cur_gap[0] > 0:
                     # step right
-                    cover += (l - j)
+                    cover += l - j
                     i += 1
                     cur_lo_gap = cur_gap
                     if minus(cur_lo_gap, lo_gap)[0] < 0:
@@ -73,16 +75,16 @@ class Solution(object):
                         hi_gap = cur_hi_gap
             hi_cover = cover if lo_gap[0] == 0 else cover + 1
             return cur_lo + [cover], cur_hi + [hi_cover]
-        
+
         lo = lo_all + [1]
         hi = hi_all + [l * (l - 1) / 2]
-        
+
         # binary search
         while minus(hi, lo)[0] > 0:
-            
+
             mi = ave(hi, lo)
             num1, num2 = search(A, mi)
-            
+
             if num1[2] == K:
                 return num1[:2]
             if num2[2] == K:
@@ -91,9 +93,5 @@ class Solution(object):
                 hi = num1
             else:
                 lo = num2
-                
+
         return lo[:2]
-        
-        
-        
-            

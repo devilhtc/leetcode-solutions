@@ -1,37 +1,40 @@
 import heapq
 
+
 class Interval(object):
     """
     An interval in the exam room
     """
 
     def __init__(self, N, s, e):
-        self.N = N # max of interval
-        self.s = s # start of interval
-        self.e = e # end of interval
+        self.N = N  # max of interval
+        self.s = s  # start of interval
+        self.e = e  # end of interval
         self.build()
-    
+
     def build(self):
         seat, dis = self.get_seat_and_dis()
-        self.seat = seat 
+        self.seat = seat
         self.dis = dis
         self.removed = False
 
     def get_seat_and_dis(self):
-        if self.s == 0 and self.e == self.N - 1: # is the whole room - seat the student at 0
+        if (
+            self.s == 0 and self.e == self.N - 1
+        ):  # is the whole room - seat the student at 0
             seat = 0
             dis = self.N
-        elif self.s == 0: # is at the start
+        elif self.s == 0:  # is at the start
             seat = 0
             dis = self.e + 1
-        elif self.e == self.N - 1: # is at the end
+        elif self.e == self.N - 1:  # is at the end
             seat = self.e
             dis = self.e - self.s + 1
         else:
-            seat = (self.s + self.e) / 2 # the position to seat to obtain max min dis
+            seat = (self.s + self.e) / 2  # the position to seat to obtain max min dis
             dis = seat - self.s + 1
         return seat, dis
-    
+
     def spawn_children(self):
         # start and end of interval after the split
         left = (self.s, self.seat - 1)
@@ -45,10 +48,10 @@ class Interval(object):
         if self.dis != other.dis:
             return other.dis - self.dis
         return self.seat - other.seat
-    
+
     def __repr__(self):
-        r = '<Interval [{}, {}] with N = {}>'.format(self.s, self.e, self.N)
-        return '<Removed Interval>' if self.removed else r
+        r = "<Interval [{}, {}] with N = {}>".format(self.s, self.e, self.N)
+        return "<Removed Interval>" if self.removed else r
 
     def remove(self):
         self.removed = True
@@ -58,6 +61,8 @@ class Interval(object):
 merge a list of adjacent intervals (might contain None)
 contains at least 1 non-None element
 """
+
+
 def merge_intervals(itvs):
     itvs = [ele for ele in itvs if ele is not None]
     N = itvs[0].N
@@ -67,18 +72,17 @@ def merge_intervals(itvs):
 
 
 class ExamRoom(object):
-
     def __init__(self, N):
         """
         :type N: int
         """
-        self.N = N 
+        self.N = N
         self.build()
-    
+
     def build(self):
         itv = Interval(self.N, 0, self.N - 1)
-        self.pq = [itv] # priority queue to keep track of intervals
-        self.m = { 0: itv, self.N - 1: itv } # hashmap for merging
+        self.pq = [itv]  # priority queue to keep track of intervals
+        self.m = {0: itv, self.N - 1: itv}  # hashmap for merging
 
     def seat(self):
         """

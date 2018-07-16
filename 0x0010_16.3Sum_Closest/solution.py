@@ -6,11 +6,12 @@ class Solution(object):
         :rtype: int
         """
         nums = sorted(nums)
-        if len(nums) < 3: return sum(nums)
+        if len(nums) < 3:
+            return sum(nums)
         out = sum(nums[:3])
         minDis = abs(out - target)
         for i in range(len(nums) - 2):
-            
+
             l = i + 1
             r = len(nums) - 1
             while l < r:

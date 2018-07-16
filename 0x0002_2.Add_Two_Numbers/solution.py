@@ -4,6 +4,7 @@
 #         self.val = x
 #         self.next = None
 
+
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
         """
@@ -12,7 +13,7 @@ class Solution(object):
         :rtype: ListNode
         """
         return self.addTwoHelper(l1, l2, 0)
-    
+
     def addTwoHelper(self, l1, l2, carry):
         if l1 is None and l2 is None:
             if carry == 0:
@@ -29,8 +30,8 @@ class Solution(object):
                 return l2
         if l2 is None:
             return self.addTwoHelper(l2, l1, carry)
-        
+
         curVal = l1.val + l2.val + carry
         node = ListNode(curVal % 10)
-        node.next = self.addTwoHelper(l1.next, l2.next, curVal/10)
+        node.next = self.addTwoHelper(l1.next, l2.next, curVal / 10)
         return node

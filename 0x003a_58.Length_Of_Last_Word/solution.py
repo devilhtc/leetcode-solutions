@@ -5,6 +5,6 @@ class Solution(object):
         :rtype: int
         """
         ss = s.strip().split()
-        if len(ss) == 0: return 0
+        if len(ss) == 0:
+            return 0
         return len(ss[-1])
-        

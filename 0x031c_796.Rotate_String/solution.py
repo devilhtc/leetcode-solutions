@@ -6,4 +6,3 @@ class Solution(object):
         :rtype: bool
         """
         return len(A) == len(B) and (A + A).find(B) != -1
-        

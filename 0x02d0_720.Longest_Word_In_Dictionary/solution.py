@@ -5,13 +5,13 @@ class Solution(object):
         :rtype: str
         """
         words = sorted(words)
-        #print words
-        
-        d = {"":1}
+        # print words
+
+        d = {"": 1}
         longest = ""
         for word in words:
             if word[:-1] in d:
                 d[word] = 1
-                if len(word)>len(longest):
+                if len(word) > len(longest):
                     longest = word
         return longest

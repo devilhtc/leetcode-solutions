@@ -5,6 +5,7 @@ def getNext(numRows, cur, direction):
         return 1, 1
     return cur + direction, direction
 
+
 class Solution(object):
     def convert(self, s, numRows):
         """
@@ -20,5 +21,5 @@ class Solution(object):
         for i in range(len(s)):
             rows[cur].append(s[i])
             cur, direction = getNext(numRows, cur, direction)
-        out = ''.join([''.join(row) for row in rows])
+        out = "".join(["".join(row) for row in rows])
         return out

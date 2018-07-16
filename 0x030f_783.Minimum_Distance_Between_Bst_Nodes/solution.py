@@ -5,6 +5,7 @@
 #         self.left = None
 #         self.right = None
 
+
 class Solution(object):
     def minDiffInBST(self, root):
         """
@@ -19,7 +20,7 @@ class Solution(object):
         self.minDis = minDis
         self.postOrder(root)
         return self.minDis
-    
+
     def postOrder(self, node):
         minVal = node.val
         maxVal = node.val
@@ -32,5 +33,3 @@ class Solution(object):
             self.minDis = min(rightMinVal - node.val, self.minDis)
             maxVal = rightMaxVal
         return minVal, maxVal
-        
-        

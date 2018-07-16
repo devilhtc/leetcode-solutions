@@ -9,10 +9,9 @@ class Solution(object):
         for a in answers:
             d[a] = d.get(a, 0) + 1
             if d[a] == a + 1:
-                count += (a+1)
+                count += a + 1
                 d[a] = 0
         for k in d:
             if d[k] != 0:
-                count += (k+1)
+                count += k + 1
         return count
-        

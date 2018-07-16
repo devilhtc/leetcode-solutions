@@ -2,12 +2,13 @@ class Node(object):
     """
     Doubly-linked list node
     """
+
     def __init__(self, val):
         self.val = val
         self.prev = None
         self.next = None
 
-        
+
 class MyCircularDeque(object):
     def __init__(self, k):
         """
@@ -17,7 +18,7 @@ class MyCircularDeque(object):
         self.cap = k
         self.size = 0
         self.head = None
-        self.tail = None      
+        self.tail = None
 
     def insertFront(self, value):
         """
@@ -27,20 +28,19 @@ class MyCircularDeque(object):
         """
         if self.size == self.cap:
             return False
-        
+
         node = Node(value)
-        
+
         if self.size == 0:
             self.head = node
             self.tail = node
         else:
             node.next = self.head
             self.head.prev = node
-            self.head = node   
-        
+            self.head = node
+
         self.size += 1
         return True
-        
 
     def insertLast(self, value):
         """
@@ -50,9 +50,9 @@ class MyCircularDeque(object):
         """
         if self.size == self.cap:
             return False
-        
+
         node = Node(value)
-        
+
         if self.size == 0:
             self.head = node
             self.tail = node
@@ -60,10 +60,9 @@ class MyCircularDeque(object):
             node.prev = self.tail
             self.tail.next = node
             self.tail = node
-        
-        self.size += 1 
+
+        self.size += 1
         return True
-        
 
     def deleteFront(self):
         """
@@ -72,7 +71,7 @@ class MyCircularDeque(object):
         """
         if self.size == 0:
             return False
-        
+
         if self.size == 1:
             self.head = None
             self.tail = None
@@ -80,10 +79,9 @@ class MyCircularDeque(object):
             prevhead = self.head
             self.head = self.head.next
             self.head.prev = None
-        
+
         self.size -= 1
         return True
-        
 
     def deleteLast(self):
         """
@@ -92,7 +90,7 @@ class MyCircularDeque(object):
         """
         if self.size == 0:
             return False
-        
+
         if self.size == 1:
             self.head = None
             self.tail = None
@@ -100,10 +98,9 @@ class MyCircularDeque(object):
             prevtail = self.tail
             self.tail = self.tail.prev
             self.tail.next = None
-        
+
         self.size -= 1
         return True
-        
 
     def getFront(self):
         """
@@ -112,9 +109,8 @@ class MyCircularDeque(object):
         """
         if self.size == 0:
             return -1
-        
+
         return self.head.val
-        
 
     def getRear(self):
         """
@@ -123,9 +119,8 @@ class MyCircularDeque(object):
         """
         if self.size == 0:
             return -1
-        
+
         return self.tail.val
-    
 
     def isEmpty(self):
         """
@@ -133,7 +128,6 @@ class MyCircularDeque(object):
         :rtype: bool
         """
         return self.size == 0
-        
 
     def isFull(self):
         """

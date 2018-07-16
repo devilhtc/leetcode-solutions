@@ -6,11 +6,13 @@ class Solution(object):
         """
         n = len(rooms)
         visited = [False for _ in range(n)]
+
         def bfs(r):
-            if visited[r]: return
+            if visited[r]:
+                return
             visited[r] = True
-            for k in rooms[r]: bfs(k)
+            for k in rooms[r]:
+                bfs(k)
+
         bfs(0)
         return all(visited)
-        
-        

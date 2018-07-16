@@ -5,7 +5,14 @@ class Solution(object):
         :rtype: bool
         """
         stack = []
-        d = {'(': (0, 1), ')': (0, -1), '{': (1, 1), '}': (1, -1), '[': (2, 1), ']': (2, -1)}
+        d = {
+            "(": (0, 1),
+            ")": (0, -1),
+            "{": (1, 1),
+            "}": (1, -1),
+            "[": (2, 1),
+            "]": (2, -1),
+        }
         for p in s:
             i, c = d[p]
             if c == 1:
@@ -17,6 +24,3 @@ class Solution(object):
                     return False
                 stack.pop()
         return len(stack) == 0
-        
-        
-        

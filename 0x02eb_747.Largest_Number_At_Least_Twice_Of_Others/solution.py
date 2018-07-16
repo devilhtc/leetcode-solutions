@@ -10,7 +10,6 @@ class Solution(object):
             if nums[i] == largest:
                 k = i
             else:
-                if 2*nums[i] > largest:
+                if 2 * nums[i] > largest:
                     return -1
         return k
-        

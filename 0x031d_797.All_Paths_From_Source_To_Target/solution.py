@@ -6,6 +6,7 @@ class Solution(object):
         """
         out = []
         stack = []
+
         def dfs(node):
             stack.append(node)
             if node == len(graph) - 1:
@@ -15,7 +16,6 @@ class Solution(object):
                 for c in children:
                     dfs(c)
             stack.pop()
+
         dfs(0)
         return out
-            
-        

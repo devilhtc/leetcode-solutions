@@ -8,7 +8,8 @@ class Solution(object):
         :rtype: str
         """
         ctr = Counter(S)
-        if ctr.most_common(1)[0][1] > (len(S) + 1)/2: return ""
+        if ctr.most_common(1)[0][1] > (len(S) + 1) / 2:
+            return ""
         out = []
         for i in range(len(S)):
             mc = ctr.most_common(2)
@@ -18,5 +19,4 @@ class Solution(object):
                     c = mc[1][0]
             out.append(c)
             ctr.subtract(Counter(c))
-        return ''.join(out)          
-                
+        return "".join(out)

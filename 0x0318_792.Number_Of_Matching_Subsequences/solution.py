@@ -1,4 +1,5 @@
-LOWER_LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+LOWER_LETTERS = "abcdefghijklmnopqrstuvwxyz"
+
 
 class WordCounter(object):
     def __init__(self, words):
@@ -10,17 +11,18 @@ class WordCounter(object):
             if len(word) > 0:
                 self.d[word[0]].append((w, 0))
                 self.left += 1
-    
+
     def process(self, c):
         toMove = self.d[c]
         self.d[c] = []
         for w, i in toMove:
             if i == len(self.words[w]) - 1:
-                self.left -=1 
+                self.left -= 1
             else:
-                self.d[self.words[w][i+1]].append((w, i+1))
+                self.d[self.words[w][i + 1]].append((w, i + 1))
         return self.left == 0
-    
+
+
 class Solution(object):
     def numMatchingSubseq(self, S, words):
         """

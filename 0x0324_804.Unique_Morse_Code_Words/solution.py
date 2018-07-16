@@ -1,10 +1,39 @@
-MORSE_DICT = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
+MORSE_DICT = [
+    ".-",
+    "-...",
+    "-.-.",
+    "-..",
+    ".",
+    "..-.",
+    "--.",
+    "....",
+    "..",
+    ".---",
+    "-.-",
+    ".-..",
+    "--",
+    "-.",
+    "---",
+    ".--.",
+    "--.-",
+    ".-.",
+    "...",
+    "-",
+    "..-",
+    "...-",
+    ".--",
+    "-..-",
+    "-.--",
+    "--..",
+]
+
 
 def encode(w):
     out_list = []
     for c in w:
-        out_list.append(MORSE_DICT[ord(c) - ord('a')])
-    return ''.join(out_list)
+        out_list.append(MORSE_DICT[ord(c) - ord("a")])
+    return "".join(out_list)
+
 
 class Solution(object):
     def uniqueMorseRepresentations(self, words):
@@ -16,4 +45,3 @@ class Solution(object):
         for w in words:
             s.add(encode(w))
         return len(s)
-        

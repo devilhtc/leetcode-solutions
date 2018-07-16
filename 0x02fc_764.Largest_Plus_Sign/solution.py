@@ -30,6 +30,3 @@ class Solution(object):
             for j in range(N):
                 out = max(out, min([l[i][j], r[i][j], u[i][j], d[i][j]]))
         return out
-            
-            
-        

@@ -4,17 +4,20 @@
 #         self.val = x
 #         self.next = None
 
+
 def getlen(node):
     if node is None:
         return 0
     else:
         return getlen(node.next) + 1
-    
+
+
 def getnode(node, k):
     if k == 0:
         return node
     else:
-        return getnode(node.next, k-1)
+        return getnode(node.next, k - 1)
+
 
 class Solution(object):
     def splitListToParts(self, root, k):
@@ -26,7 +29,7 @@ class Solution(object):
         l = getlen(root)
         lengths = [0 for _ in range(k)]
         for i in range(l):
-            lengths[i%k] += 1
+            lengths[i % k] += 1
         out = []
         head = root
         for i in range(k):
@@ -36,10 +39,7 @@ class Solution(object):
             else:
                 out.append(head)
                 tail = getnode(head, curlen - 1)
-                
+
                 head = getnode(head, curlen)
                 tail.next = None
         return out
-        
-    
-        

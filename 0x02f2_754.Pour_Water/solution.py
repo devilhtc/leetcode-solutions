@@ -1,8 +1,9 @@
 class Terrain(object):
     def __init__(self, heights):
         self.heights = heights
-    
+
         # flow in the direction of d, return final index
+
     def flow(self, k, d):
         # first move the direciton of d to identify the lowest it can achieve
         l = self.heights[k]
@@ -20,12 +21,14 @@ class Terrain(object):
                 break
             i += d
         return i
-        
+
         # drop a droplet at position k, the heights will be updated accordingly
+
     def drop(self, k):
         k = self.flow(k, -1)
         k = self.flow(k, 1)
         self.heights[k] += 1
+
 
 class Solution(object):
     def pourWater(self, heights, V, K):
@@ -39,4 +42,3 @@ class Solution(object):
         for _ in range(V):
             t.drop(K)
         return t.heights
-        

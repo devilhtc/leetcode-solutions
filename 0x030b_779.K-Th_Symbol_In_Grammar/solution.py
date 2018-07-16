@@ -5,6 +5,6 @@ class Solution(object):
         :type K: int
         :rtype: int
         """
-        if N == 1: return 0
-        return (self.kthGrammar(N - 1, (K + 1)/2) + K + 1) % 2
-        
+        if N == 1:
+            return 0
+        return (self.kthGrammar(N - 1, (K + 1) / 2) + K + 1) % 2

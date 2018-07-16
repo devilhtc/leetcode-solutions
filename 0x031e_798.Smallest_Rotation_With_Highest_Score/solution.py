@@ -22,5 +22,3 @@ class Solution(object):
                 maxP = curP
                 maxI = i
         return maxI
-
-        

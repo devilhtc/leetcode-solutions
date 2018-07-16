@@ -4,6 +4,7 @@
 #         self.val = x
 #         self.next = None
 
+
 class Solution(object):
     def numComponents(self, head, G):
         """
@@ -18,9 +19,9 @@ class Solution(object):
         while node is not None:
             if node.val in s:
                 c += 1
-                if c == 1: out += 1
+                if c == 1:
+                    out += 1
             else:
                 c = 0
             node = node.next
         return out
-        

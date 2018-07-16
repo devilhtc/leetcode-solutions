@@ -4,12 +4,14 @@ class Solution(object):
         :type grid: List[List[int]]
         :rtype: int
         """
-        m = len( grid )
-        if m <= 1: return 0
-        n = len( grid[0] )
-        if n <= 1: return 0
-        
-        #if m <= n: 
+        m = len(grid)
+        if m <= 1:
+            return 0
+        n = len(grid[0])
+        if n <= 1:
+            return 0
+
+        # if m <= n:
         cache = [[0 for _ in range(m)] for _ in range(m)]
         for j in range(n):
             curOnes = []

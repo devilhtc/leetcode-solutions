@@ -8,7 +8,6 @@ class Solution(object):
         s = set(list(J))
         count = 0
         for c in S:
-            if c in s: 
+            if c in s:
                 count += 1
         return count
-        

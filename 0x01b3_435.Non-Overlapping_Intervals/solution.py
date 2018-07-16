@@ -4,6 +4,7 @@
 #         self.start = s
 #         self.end = e
 
+
 class Solution(object):
     def eraseOverlapIntervals(self, intervals):
         """
@@ -12,14 +13,18 @@ class Solution(object):
         """
         # if empty, return 0
         l = len(intervals)
-        if l == 0: return 0
-        
+        if l == 0:
+            return 0
+
         # sort the intervals by end and then start
         def cmp_itv(a, b):
-            if a.end == b.end: return a.start - b.start
-            else: return a.end - b.end
-        itvs = sorted(intervals, cmp = cmp_itv)
-        
+            if a.end == b.end:
+                return a.start - b.start
+            else:
+                return a.end - b.end
+
+        itvs = sorted(intervals, cmp=cmp_itv)
+
         # conduct longest increasing subsequence
         keeps = [0 for _ in range(l)]
         prevmaxs = [0 for _ in range(l)]
@@ -27,7 +32,7 @@ class Solution(object):
         for i in range(l):
             itv = itvs[i]
             lo, hi = 0, i
-            # binary search 
+            # binary search
             while lo < hi - 1:
                 mi = (lo + hi) / 2
                 if itvs[mi].end > itv.start:
@@ -38,4 +43,3 @@ class Solution(object):
             prevmaxs[i] = max(prevmax, keeps[i])
             prevmax = prevmaxs[i]
         return l - max(keeps)
-        
