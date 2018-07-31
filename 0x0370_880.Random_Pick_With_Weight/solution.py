@@ -1,13 +1,13 @@
 import random
 
-class Solution:
 
+class Solution:
     def __init__(self, w):
         """
         :type w: List[int]
         """
         self.build(w)
-    
+
     def build(self, w):
         self._w = [0.0]
         total = sum(w)
@@ -15,13 +15,13 @@ class Solution:
         for i in w:
             cur += i
             self._w.append(cur / total)
-        
+
     def pickIndex(self):
         """
         :rtype: int
         """
         return self._pickIndex(random.random())
-    
+
     def _pickIndex(self, r):
         lo = 0
         hi = len(self._w) - 1
@@ -32,7 +32,7 @@ class Solution:
             else:
                 lo = mi
         return lo
-        
+
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(w)

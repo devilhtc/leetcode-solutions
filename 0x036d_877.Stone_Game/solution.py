@@ -4,5 +4,4 @@ class Solution:
         :type piles: List[int]
         :rtype: bool
         """
-        return True # alex can always win
-        
+        return True  # alex can always win
