@@ -13,8 +13,9 @@ class ReservoirSampling:
     def get_next(self):
         self.l = self.l - 1
         r = random.randint(0, self.l)
-        self.m[r], self.m[self.l] = self.m.get(self.l, self.l), self.m.get(r, r)
-        return self.m[self.l]
+        v = self.m.get(r, r)
+        self.m[r] = self.m.get(self.l, self.l)
+        return v
 
     def reset(self):
         self.build()
