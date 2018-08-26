@@ -5,6 +5,7 @@
 #         self.left = None
 #         self.right = None
 
+
 class Solution:
     def constructFromPrePost(self, pre, post):
         """
@@ -16,7 +17,7 @@ class Solution:
         self.post = post
         self.post_dict = {post[i]: i for i in range(len(post))}
         return self.constructHelper(0, len(pre) - 1, 0)
-    
+
     def constructHelper(self, s1, e1, s2):
         e2 = e1 - s1 + s2
         if s1 > e1:
@@ -28,5 +29,7 @@ class Solution:
             left_tree_size = left_post_end - s2 + 1
             right_tree_size = e1 - s1 - left_tree_size
             cur.left = self.constructHelper(s1 + 1, s1 + left_tree_size, s2)
-            cur.right = self.constructHelper(s1 + left_tree_size + 1, e1, e2 - right_tree_size)
+            cur.right = self.constructHelper(
+                s1 + left_tree_size + 1, e1, e2 - right_tree_size
+            )
         return cur

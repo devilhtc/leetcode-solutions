@@ -9,7 +9,6 @@ class Solution:
         sb = set(B)
         out = [0, 0]
         for i in A:
-            if i - dif//2 in sb:
-                out = [i, i - dif//2]
+            if i - dif // 2 in sb:
+                out = [i, i - dif // 2]
         return out
-        

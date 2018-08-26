@@ -6,8 +6,8 @@ class Solution:
         :rtype: List[str]
         """
         pat_rep = self.constructRep(pattern)
-        return [word for word in words if self.constructRep(word) == pat_rep]  
-    
+        return [word for word in words if self.constructRep(word) == pat_rep]
+
     def constructRep(self, s):
         out = []
         d = {}
@@ -18,4 +18,3 @@ class Solution:
                 cur += 1
             out.append(d[c])
         return out
-        
