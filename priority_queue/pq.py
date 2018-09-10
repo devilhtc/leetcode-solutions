@@ -14,6 +14,7 @@ class PriorityQueue:
     uses a heap (in the form a list) to keep track of values
     and a dictionary ()
     """
+    debug = False
 
     def __init__(self, cmp=None):
         """
@@ -37,12 +38,14 @@ class PriorityQueue:
         self._heap.append(item)
         self._tracker[id(item)] = len(self._heap) - 1
         self._float(item)
-        self._debug_log('push')
+        self._debug_log("push")
 
     def pop(self):
+        if len(self._heap) == 0:
+            raise IndexError('pop from empty PriorityQueue')
         out = self._heap[0]
         self.remove(out)
-        self._debug_log('pop')
+        self._debug_log("pop")
         return out
 
     def remove(self, item):
@@ -128,28 +131,21 @@ class PriorityQueue:
     # debug only
 
     def _debug_log(self, after=None):
+        if not self.debug:
+            return
         if after is not None:
-            print('after {}'.format(after))
+            print("after {}".format(after))
         print(self._heap)
-        print(
-            {ele: self._tracker[id(ele)] for ele in self._heap}
-        )
+        print({ele: self._tracker[id(ele)] for ele in self._heap})
         print()
+
 
 class PriorityQueueTestCases(unittest.TestCase):
     def setUp(self):
+        # test cases are arranged as
+        # (operations, expected_return_values, constructor_args)
         self.basic_testcasts = [
-            (
-                [
-                    ("push", [3]),
-                    ("pop", [])
-                ],
-                [
-                    None,
-                    3
-                ],
-                None
-            ),
+            ([("push", [3]), ("pop", [])], [None, 3], None),
             (
                 [
                     ("push", [5]),
@@ -161,27 +157,39 @@ class PriorityQueueTestCases(unittest.TestCase):
                     ("pop", []),
                     ("push", [8]),
                     ("push", [4]),
+                    ("pop", []),
+                    ("push", [11]),
+                    ("push", [4]),
+                    ("pop", []),
+                    ("pop", []),
+                ],
+                [None, None, None, None, 1, 5, 6, None, None, 4, None, None, 4, 7],
+                None,
+            ),
+            (
+                [
+                    ("push", [5]),
+                    ("push", [6]),
+                    ("remove", [5]),
                     ("pop", [])
                 ],
                 [
-                    None,
-                    None,
-                    None,
-                    None,
-                    1,
-                    5,
-                    6,
-                    None,
-                    None,
-                    4
+                    None, None, None, 6
                 ],
                 None
             )
         ]
-        
 
     def test_basic(self):
         self._execute_test_cases(self.basic_testcasts)
+
+    def test_errors(self):
+        # pop from empty
+        a = PriorityQueue()
+        try:
+            a.pop()
+        except Exception as e:
+            self.assertEqual(e.__class__, IndexError)
 
     def _execute_test_cases(self, cases):
         for ops, rets, cmpfunc in cases:
@@ -189,11 +197,7 @@ class PriorityQueueTestCases(unittest.TestCase):
             for i in range(len(ops)):
                 op = ops[i]
                 expected_ret = rets[i]
-                self.assertEqual(
-                    getattr(pq, op[0])(*op[1]),
-                    expected_ret
-                )
-
+                self.assertEqual(getattr(pq, op[0])(*op[1]), expected_ret)
 
 
 if __name__ == "__main__":
