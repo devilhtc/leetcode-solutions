@@ -14,6 +14,7 @@ class PriorityQueue:
     uses a heap (in the form a list) to keep track of values
     and a dictionary ()
     """
+
     debug = False
 
     def __init__(self, cmp=None):
@@ -42,7 +43,7 @@ class PriorityQueue:
 
     def pop(self):
         if len(self._heap) == 0:
-            raise IndexError('pop from empty PriorityQueue')
+            raise IndexError("pop from empty PriorityQueue")
         out = self._heap[0]
         self.remove(out)
         self._debug_log("pop")
@@ -167,17 +168,10 @@ class PriorityQueueTestCases(unittest.TestCase):
                 None,
             ),
             (
-                [
-                    ("push", [5]),
-                    ("push", [6]),
-                    ("remove", [5]),
-                    ("pop", [])
-                ],
-                [
-                    None, None, None, 6
-                ],
-                None
-            )
+                [("push", [5]), ("push", [6]), ("remove", [5]), ("pop", [])],
+                [None, None, None, 6],
+                None,
+            ),
         ]
 
     def test_basic(self):
