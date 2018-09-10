@@ -12,7 +12,7 @@ class PriorityQueue:
     """
     My own damn PriorityQueue
     uses a heap (in the form a list) to keep track of values
-    and a dictionary ()
+    and a dictionary that maps item (id) to element index in the heap
     """
 
     debug = False
