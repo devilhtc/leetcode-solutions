@@ -45,7 +45,7 @@ class PriorityQueue:
         return out
 
     def remove(self, item):
-        if id(item) not in self.tracker:
+        if id(item) not in self._tracker:
             raise ValueError(
                 "The item ({}) you wish to remove"
                 "is not in the PriorityQueue".format(item)
@@ -126,8 +126,36 @@ class PriorityQueue:
 
 
 class PriorityQueueTestCases(unittest.TestCase):
+    def setUp(self):
+        self.basic_testcasts = [
+            (
+                [
+                    ("push", [3]),
+                    ("pop", [])
+                ],
+                [
+                    None,
+                    3
+                ],
+                None
+            )
+        ]
+        
+
     def test_basic(self):
-        self.assertEqual(1, 2 - 1)
+        self._execute_test_cases(self.basic_testcasts)
+
+    def _execute_test_cases(self, cases):
+        for ops, rets, cmpfunc in cases:
+            pq = PriorityQueue(cmp=cmpfunc)
+            for i in range(len(ops)):
+                op = ops[i]
+                expected_ret = rets[i]
+                func = getattr(pq, op[0])
+                args = op[1]
+                ret = func(*args)
+                self.assertEqual(ret, expected_ret)
+
 
 
 if __name__ == "__main__":
