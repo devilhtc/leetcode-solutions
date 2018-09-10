@@ -24,7 +24,6 @@ class PriorityQueue:
         self._cmpfunc = cmp
         self._heap = []
         self._tracker = {}  # item id - index in heap
-        self._size = 0
 
     # public api
 
@@ -38,10 +37,12 @@ class PriorityQueue:
         self._heap.append(item)
         self._tracker[id(item)] = len(self._heap) - 1
         self._float(item)
+        self._debug_log('push')
 
     def pop(self):
         out = self._heap[0]
         self.remove(out)
+        self._debug_log('pop')
         return out
 
     def remove(self, item):
@@ -64,21 +65,21 @@ class PriorityQueue:
 
     def _sink(self, item):
         left, right = self._get_children(item)
-        if self._cmp(item, left) >= 0 and self._cmp(item, right) >= 0:
-            # item >= left, item >= right, no-op
+        if self._cmp(item, left) <= 0 and self._cmp(item, right) <= 0:
+            # item <= left, item <= right, no-op
             return
-        elif self._cmp(item, left) <= 0 and self._cmp(item, right) >= 0:
-            # left >= item >= right
-            self._swap(item, left)
         elif self._cmp(item, left) >= 0 and self._cmp(item, right) <= 0:
-            # right >= item >= left
+            # left <= item <= right
+            self._swap(item, left)
+        elif self._cmp(item, left) <= 0 and self._cmp(item, right) >= 0:
+            # right <= item <= left
             self._swap(item, right)
-        # now left >= item, right >= item
-        elif self._cmp(left, right) >= 0:
-            # left >= right
+        # now left <= item, right <= item
+        elif self._cmp(left, right) <= 0:
+            # left <= right
             self._swap(item, left)
         else:
-            # right >= left
+            # right <= left
             self._swap(item, right)
         self._sink(item)
 
@@ -86,7 +87,7 @@ class PriorityQueue:
         parent = self._get_parent(item)
         if parent is None:
             return
-        if self._cmp(item, parent) >= 0:
+        if self._cmp(item, parent) <= 0:
             self._swap(item, parent)
             self._float(item)
 
@@ -105,25 +106,35 @@ class PriorityQueue:
         idx = self._tracker[id(item)]
         if idx == 0:
             return None
-        return self._get_node_by_idx()
+        return self._get_node_by_idx((idx - 1) // 2)
 
     def _get_node_by_idx(self, idx):
         return self._heap[idx] if 0 <= idx < len(self._heap) else None
 
     def _cmp(self, item1, item2):
         if item1 is None:
-            return -1
-        if item2 is None:
             return 1
+        if item2 is None:
+            return -1
         if self._cmpfunc is not None:
             return self._cmpfunc(item1, item2)
-        if a == b:
+        if item1 == item2:
             return 0
-        if a < b:
+        if item1 < item2:
             return -1
         else:
             return 1
 
+    # debug only
+
+    def _debug_log(self, after=None):
+        if after is not None:
+            print('after {}'.format(after))
+        print(self._heap)
+        print(
+            {ele: self._tracker[id(ele)] for ele in self._heap}
+        )
+        print()
 
 class PriorityQueueTestCases(unittest.TestCase):
     def setUp(self):
@@ -136,6 +147,33 @@ class PriorityQueueTestCases(unittest.TestCase):
                 [
                     None,
                     3
+                ],
+                None
+            ),
+            (
+                [
+                    ("push", [5]),
+                    ("push", [6]),
+                    ("push", [7]),
+                    ("push", [1]),
+                    ("pop", []),
+                    ("pop", []),
+                    ("pop", []),
+                    ("push", [8]),
+                    ("push", [4]),
+                    ("pop", [])
+                ],
+                [
+                    None,
+                    None,
+                    None,
+                    None,
+                    1,
+                    5,
+                    6,
+                    None,
+                    None,
+                    4
                 ],
                 None
             )
@@ -151,10 +189,10 @@ class PriorityQueueTestCases(unittest.TestCase):
             for i in range(len(ops)):
                 op = ops[i]
                 expected_ret = rets[i]
-                func = getattr(pq, op[0])
-                args = op[1]
-                ret = func(*args)
-                self.assertEqual(ret, expected_ret)
+                self.assertEqual(
+                    getattr(pq, op[0])(*op[1]),
+                    expected_ret
+                )
 
 
 
