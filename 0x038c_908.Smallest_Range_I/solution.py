@@ -6,4 +6,3 @@ class Solution:
         :rtype: int
         """
         return max(max(A) - min(A) - 2 * K, 0)
-        

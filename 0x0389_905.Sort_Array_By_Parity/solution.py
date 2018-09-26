@@ -11,4 +11,3 @@ class Solution:
             else:
                 o.append(ele)
         return e + o
-        
