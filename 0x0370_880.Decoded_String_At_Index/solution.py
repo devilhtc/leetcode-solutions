@@ -6,7 +6,7 @@ class Solution(object):
         :rtype: str
         """
         target = K
-        stack = [('', 0)]
+        stack = [("", 0)]
         for c in S:
             if not c.isdigit():
                 stack.append((c, stack[-1][1] + 1))
@@ -25,5 +25,4 @@ class Solution(object):
             else:
                 target = ((target - 1) % stack[-2][1]) + 1
                 stack.pop()
-        return ''
-        
+        return ""
