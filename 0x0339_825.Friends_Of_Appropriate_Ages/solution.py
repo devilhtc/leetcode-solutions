@@ -22,6 +22,3 @@ class Solution:
             out += (last_index[v] - lo)
         return out
             
-
-
-
