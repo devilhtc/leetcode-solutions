@@ -4,9 +4,11 @@ class Solution:
         :type S: str
         :rtype: str
         """
-        a, z, A, Z = ord('a'), ord('z'), ord('A'), ord('Z')
+        a, z, A, Z = ord("a"), ord("z"), ord("A"), ord("Z")
+
         def isletter(c):
             return (a <= ord(c) <= z) or (A <= ord(c) <= Z)
+
         buffer = list(S)
         i = 0
         j = len(S) - 1
@@ -19,5 +21,4 @@ class Solution:
                 buffer[i], buffer[j] = buffer[j], buffer[i]
                 i += 1
                 j -= 1
-        return ''.join(buffer)
-            
+        return "".join(buffer)

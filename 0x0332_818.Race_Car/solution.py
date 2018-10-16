@@ -7,7 +7,7 @@ class Solution:
         target = target
         MAXX = target * 2
         # distance to target -> num steps
-        memo = {0: -1} 
+        memo = {0: -1}
         queue = [0]
         i = 0
         while i < len(queue):

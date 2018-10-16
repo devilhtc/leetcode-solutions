@@ -1,5 +1,6 @@
 MOD = 1000000007
 
+
 class Solution:
     def numFactoredBinaryTrees(self, A):
         """
@@ -25,6 +26,3 @@ class Solution:
             dp.append(cur)
             out = (out + cur) % MOD
         return out
-        
-                            
-        

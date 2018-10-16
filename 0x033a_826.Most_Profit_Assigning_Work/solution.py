@@ -13,7 +13,7 @@ class Solution:
         dp = sorted(dp, key=lambda x: (x[0], -x[1]))
         w = sorted(worker)
         i = j = 0
-        mp = dp[0][1] # max profit
+        mp = dp[0][1]  # max profit
         out = 0
         while j < len(w):
             while i < len(dp) and dp[i][0] <= w[j]:

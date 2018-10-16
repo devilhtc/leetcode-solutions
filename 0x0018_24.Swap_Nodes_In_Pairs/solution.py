@@ -4,6 +4,7 @@
 #         self.val = x
 #         self.next = None
 
+
 class Solution:
     def swapPairs(self, head):
         """
@@ -12,7 +13,7 @@ class Solution:
         """
         if head is None or head.next is None:
             return head
-        
+
         fakehead = ListNode(0)
         prev = fakehead
         cur = head

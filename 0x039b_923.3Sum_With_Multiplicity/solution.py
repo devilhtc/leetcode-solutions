@@ -3,11 +3,13 @@ from functools import reduce
 
 MOD = 1000000007
 
+
 def ncr(n, r):
-    r = min(r, n-r)
-    numer = reduce(op.mul, range(n, n-r, -1), 1)
-    denom = reduce(op.mul, range(1, r+1), 1)
-    return numer//denom
+    r = min(r, n - r)
+    numer = reduce(op.mul, range(n, n - r, -1), 1)
+    denom = reduce(op.mul, range(1, r + 1), 1)
+    return numer // denom
+
 
 class Solution:
     def threeSumMulti(self, A, target):
@@ -22,7 +24,7 @@ class Solution:
         for i, v in enumerate(l):
             # 3
             if target == v * 3 and c[v] >= 3:
-                out = (out + ncr(c[v], 3)) % MOD 
+                out = (out + ncr(c[v], 3)) % MOD
 
             # 2 - 1
             r1 = target - v * 2
