@@ -18,9 +18,7 @@ def createDir(dir):
         os.makedirs(dir)
     else:
         print()
-        print("Problem already documented")
-        print("Quitting program...")
-        quit()
+        print("Directory already exists")
 
 
 def toHexString(num, hexlen):
@@ -30,6 +28,10 @@ def toHexString(num, hexlen):
 
 
 def createProblem(args, verbose=False):
+    ext = '.py'
+    if len(args) > 0 and args[0] == '-j':
+        ext = '.java'
+        args = args[1:]
     args = [s.lower() for s in args]
     args = [s.title() for s in args]
     dirname = (
@@ -43,7 +45,7 @@ def createProblem(args, verbose=False):
     if verbose:
         print("creating directory: " + dirname)
     createDir(dirname)
-    solutionFileName = dirname + "/solution.py"
+    solutionFileName = dirname + "/solution" + ext
     if verbose:
         print("creating file: " + solutionFileName)
     createFile(solutionFileName)
