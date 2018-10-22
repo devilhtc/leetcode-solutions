@@ -13,7 +13,7 @@ class Solution:
         elif nums[-1] == target:
             return len(nums) - 1
         # lo, hi will never be the index found
-        while lo < hi - 1: 
+        while lo < hi - 1:
             mi = (lo + hi) // 2
             # lo, hi, mi will never be the same
             if nums[mi] == target:
@@ -28,7 +28,7 @@ class Solution:
                     hi = mi
                 else:
                     lo = mi
-            else: # now nums[lo] > nums[hi] > nums[mi]:
+            else:  # now nums[lo] > nums[hi] > nums[mi]:
                 if nums[mi] < target < nums[hi]:
                     lo = mi
                 else:
