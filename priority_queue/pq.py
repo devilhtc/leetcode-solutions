@@ -1,4 +1,3 @@
-
 """
 Python PriorityQueue that supports
 push, pop and most importantly >>> remove <<<

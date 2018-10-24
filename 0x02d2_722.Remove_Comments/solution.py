@@ -8,7 +8,9 @@ class Solution(object):
         ns = "\n".join(source)
         b1 = False  # for //
         b2 = False  # for /* ... */
-        outlist = []  # collect characters in a string to avoid re-write strings (which are immutable)
+        outlist = (
+            []
+        )  # collect characters in a string to avoid re-write strings (which are immutable)
         i = 0
 
         while i < len(ns):  # use a while loop so that we can skip characters
