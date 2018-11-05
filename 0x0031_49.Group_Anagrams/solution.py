@@ -6,5 +6,5 @@ class Solution:
         """
         d = collections.defaultdict(list)
         for s in strs:
-            d[''.join(sorted(list(s)))].append(s)
+            d["".join(sorted(list(s)))].append(s)
         return [v for _, v in d.items()]
