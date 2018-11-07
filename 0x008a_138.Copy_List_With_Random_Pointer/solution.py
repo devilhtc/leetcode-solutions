@@ -5,6 +5,7 @@
 #         self.next = None
 #         self.random = None
 
+
 class Solution(object):
     def copyRandomList(self, head):
         """
@@ -21,7 +22,7 @@ class Solution(object):
             node.next = RandomListNode(node.label)
             node.next.next = n
             node = n
-        
+
         # populate random pointer of new nodes
         node = head
         while node is not None:
@@ -39,7 +40,5 @@ class Solution(object):
             if n is not None:
                 n2.next = n.next
             node = n
-        
+
         return out
-   
-        

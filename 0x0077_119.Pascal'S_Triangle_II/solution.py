@@ -16,4 +16,3 @@ class Solution:
                 n[j] = p[j - 1] + p[j]
             n, p = p, n
         return p
-        
