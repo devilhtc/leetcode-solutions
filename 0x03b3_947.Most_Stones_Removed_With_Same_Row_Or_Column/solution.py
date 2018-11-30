@@ -7,7 +7,7 @@ class Solution:
         uf = {}
         Y_OFFSET = 10001
         def union(i, j):
-            j = j + 10001
+            j = j + Y_OFFSET
             fi = find(i)
             fj = find(j)
             if fi == fj:
