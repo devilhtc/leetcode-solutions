@@ -6,7 +6,7 @@ class Solution:
         """
         deck = sorted(deck)
         l = len(deck)
-        
+
         d = collections.deque(list(range(l)))
         mapping = {}
         for i in range(l):
@@ -14,7 +14,6 @@ class Solution:
             mapping[j] = i
             if len(d) > 0:
                 d.append(d.popleft())
-        #print(mapping)
+        # print(mapping)
         out = [deck[mapping[i]] for i in range(l)]
         return out
-        

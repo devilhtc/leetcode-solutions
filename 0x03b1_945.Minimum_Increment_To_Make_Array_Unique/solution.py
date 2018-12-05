@@ -11,7 +11,7 @@ class Solution:
         out = 0
         for num in A:
             if num <= e:
-                out += (e - num)
+                out += e - num
                 e += 1
             else:
                 e = num + 1
