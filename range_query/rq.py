@@ -1,3 +1,6 @@
+import unittest
+import random
+
 class RQ:
     def __init__(self, lo, hi, amount=1):
         self.lo = lo
@@ -7,120 +10,125 @@ class RQ:
         self.max = amount
 
     def query(self, start, end):
-        if (start <= self.lo and end >= self.hi) or len(self.children) == 0:
+        start = max(self.lo, start)
+        end = min(self.hi, end)
+        if (start == self.lo and end == self.hi) or len(self.children) == 0:
             return self.max
-        if start < self.lo:
-            start = self.lo
-        if end > self.hi:
-            end = self.hi
-
-        s_idx, e_idx = self._q(start, end)
-
-        i = s_idx
-        out = self.max
-        while i < e_idx + 1:
-            out = max(
-                out, self.children[i].query(
-                    start,
-                    end
+        
+        out = self.cur
+        for c in self.children:
+            if c.hi > start and end > c.lo:
+                out = max(
+                    out, c.query(start, end)
                 )
-            )
+
+        self.max = max(self.max, out)
         return out
         
     def add(self, start, end, amount=1):
-        if start <= self.lo and end >= self.hi:
-            self.cur += amount
-            self.max += amount
+        start = max(self.lo, start)
+        end = min(self.hi, end)
+        
+        if start == self.lo and end == self.hi:
+            self.cur = amount + self.cur
+            self.max = amount + self.max
             for c in self.children:
                 c.add(start, end, amount)
-            self._rf()
             return
-
-        if start < self.lo:
-            start = self.lo
-        if end > self.hi:
-            end = self.hi
-
-        s_idx, e_idx = self._q(start, end)
+        
         new_amount = amount + self.cur
-        if s_idx == -1: # empty children, or < all
-            newc = RQ(start, end, amount=new_amount)
-            self.children = [newc] + self.children
-            self.max = max(newc.max, self.max)
-            self._rf()
-            return
-
-        if s_idx == 0 and e_idx == -1: # no overlap, > all
-            newc = RQ(start, end, amount=new_amount)
-            self.children.append(newc)
-            self.max = max(newc.max, self.max)
-            self._rf()
+        self.max = max(new_amount, self.max)
+        if len(self.children) == 0:
+            self.children.append(
+                RQ(start, end, amount=new_amount)
+            )
+            self.max = max(self.max, new_amount)
             return
         
-        new_children = []
-        p = start
-
+        unmapped = []
+        s = start
         for i, c in enumerate(self.children):
-            if i < s_idx or i > e_idx:
-                new_children.append(c)
-                continue
-            if p < c.lo:
-                newc = RQ(p, c.lo, amount=new_amount)
-                self.max = max(self.max, newc.amount)
-                new_children.append(newc)
-                p = c.end
-            new_children.append(c)
-            c.add(start, end, amount)
-            if i == e_idx and end > c.hi:
-                newc = RQ(c.hi, end, amount=new_amount)
-                self.max = max(self.max, newc.amount)
-                new_children.append(newc)
+            if s < c.lo and c.lo <= end:
+                unmapped.append((s, c.lo))
+                s = c.hi
+            if self._ol((c.lo, c.hi), (start, end)):
+                c.add(start, end, amount=amount)
+                self.max = max(self.max, c.max)
+                s = c.hi
+
+        if s < end:
+            unmapped.append((s, end))
         
+        new_children = [
+            RQ(i, j, amount=new_amount) for i, j in unmapped
+        ]
+        self.children = sorted(self.children + new_children, key=lambda x: x.lo)
         self._rf()
-        return
-        
+
+
+    def _ol(self, itv1, itv2):
+        return itv1[0] < itv2[1] and itv2[0] < itv1[1]
+               
     def _rf(self):
         if len(self.children) > 5:
-            print('need rf')
-        pass
 
-    def _q(self, start, end):
-        if len(self.children) == 0:
-            return -1, -1
-        if self.children[0].lo > end:
-            return -1, 0
-        if self.children[-1].hi < start:
-            return 0, -1
+            mi = len(self.children) // 2
+            b = self.children[mi - 1].hi
 
-        s_idx = e_idx = -1
+            leftc = []
+            leftmax = self.cur
+            rightc = []
+            rightmax = self.cur
 
-        lo, hi = 0, len(self.children) - 1
-        while hi > lo:
-            mi = (hi + lo) // 2
-            if self.children[mi].hi < start:
-                lo = mi + 1
-            else:
-                hi = mi
-        s_idx = lo
+            for i, c in enumerate(self.children):
+                if i < mi:
+                    leftc.append(c)
+                    leftmax = max(c.max, leftmax)
+                else:
+                    rightc.append(c)
+                    rightmax = max(c.max, rightmax)
 
-        lo, hi = 0, len(self.children) - 1
-        while hi > lo:
-            mi = (hi + lo) // 2
-            if self.children[mi].lo > end:
-                hi = mi - 1
-            else:
-                lo = mi
-        e_idx = lo
+            left = RQ(self.lo, b, amount=self.cur)
+            left.max = leftmax
+            left.children = leftc
+            right = RQ(b, self.hi, amount=self.cur)
+            right.max = rightmax
+            right.children = rightc
 
-        return s_idx, e_idx
+            self.children = [left, right]
+                
+    def _print(self, level=0):
+        pl = lambda x: print('-'*level, *x)
+        pl([self.lo, self.hi, self.cur])
+        for c in self.children:
+            c._print(level=level+1)
     
-def main():
-    a = RQ(0, 10)
-    print('a.query(0, 10)', a.query(0, 10))
-    print('a.query(0, 3)', a.query(0, 3))
-    print('a.add(1, 2)', a.add(1, 2))
-    print('a.add(1, 2)', a.add(1, 2))
-    print('a.query(1, 2)', a.query(1, 2))
+class RQTestCase1(unittest.TestCase):
+    def test_basic(self):
+        a = RQ(3, 5)
+        self.assertEqual(a.query(3,4), 1)
+
+    def test_random(self):
+        r = RQ(0, 1000)
+        ranges = [
+            (3, 5), (4, 7), (12, 100), (34, 54), (78, 124), (72, 185), (98, 900), (120, 130)
+        ]
+        track = [1] * 1000
+        for _ in range(100):
+            a = random.randint(2, 999)
+            b = random.randint(2, 999)
+            if a == b:
+                continue
+            a, b = min(a, b), max(a, b)
+            r.add(a, b)
+            for i in range(a, b):
+                track[i] += 1
+        r._print()
+        for a, b in ranges:
+            self.assertEqual(
+                max(track[a: b]),
+                r.query(a, b)
+            )
 
 if __name__ == '__main__':
-    main()
+    unittest.main()
