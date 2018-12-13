@@ -99,48 +99,24 @@ class RQ:
         for c in self.children:
             c._print(level=level+1)
 
-import unittest
-import random
+class MyCalendar:
+
+    def __init__(self):
+        self.rq = RQ(0, 10 ** 9, amount=0)
+
+    def book(self, start, end):
+        """
+        :type start: int
+        :type end: int
+        :rtype: bool
+        """
+        if self.rq.query(start, end) == 0:
+            self.rq.add(start, end)
+            return True
+        return False
+        
 
 
-class RQTestCase1(unittest.TestCase):
-    def test_basic(self):
-        a = RQ(3, 5)
-        self.assertEqual(a.query(3,4), 1)
-
-    def test_random_1(self):
-        lo, hi = 0, 1000
-        num_ranges = 200
-        num_adds = 2500
-
-        r = RQ(lo, hi)
-
-        ranges = [self._gen_interval(lo, hi) for _ in range(num_ranges)]
-        track = [1] * (hi - lo)
-        for _ in range(100):
-            a, b = self._gen_interval(lo, hi)
-            r.add(a, b)
-            for i in range(a - lo, b - lo):
-                track[i] += 1
-
-        r._print()
-        for a, b in ranges:
-            self.assertEqual(
-                max(track[a - lo : b - lo]),
-                r.query(a, b)
-            )
-
-    def _gen_interval(self, lo, hi):
-        assert lo < hi, 'lo must < hi'
-        while True:
-            a = random.randint(lo, hi)
-            b = random.randint(lo, hi)
-            if a == b:
-                continue
-            else:
-                return (
-                    min(a, b),
-                    max(a, b)
-                )
-if __name__ == '__main__':
-    unittest.main()
+# Your MyCalendar object will be instantiated and called as such:
+# obj = MyCalendar()
+# param_1 = obj.book(start,end)
