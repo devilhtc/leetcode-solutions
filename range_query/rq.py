@@ -108,27 +108,39 @@ class RQTestCase1(unittest.TestCase):
         a = RQ(3, 5)
         self.assertEqual(a.query(3,4), 1)
 
-    def test_random(self):
-        r = RQ(0, 1000)
-        ranges = [
-            (3, 5), (4, 7), (12, 100), (34, 54), (78, 124), (72, 185), (98, 900), (120, 130)
-        ]
-        track = [1] * 1000
+    def test_random_1(self):
+        lo, hi = 0, 1000
+        num_ranges = 200
+        num_adds = 2500
+
+        r = RQ(lo, hi)
+
+        ranges = [self._gen_interval(lo, hi) for _ in range(num_ranges)]
+        track = [1] * (hi - lo)
         for _ in range(100):
-            a = random.randint(2, 999)
-            b = random.randint(2, 999)
-            if a == b:
-                continue
-            a, b = min(a, b), max(a, b)
+            a, b = self._gen_interval(lo, hi)
             r.add(a, b)
-            for i in range(a, b):
+            for i in range(a - lo, b - lo):
                 track[i] += 1
+
         r._print()
         for a, b in ranges:
             self.assertEqual(
-                max(track[a: b]),
+                max(track[a - lo : b - lo]),
                 r.query(a, b)
             )
 
+    def _gen_interval(self, lo, hi):
+        assert lo < hi, 'lo must < hi'
+        while True:
+            a = random.randint(lo, hi)
+            b = random.randint(lo, hi)
+            if a == b:
+                continue
+            else:
+                return (
+                    min(a, b),
+                    max(a, b)
+                )
 if __name__ == '__main__':
     unittest.main()
