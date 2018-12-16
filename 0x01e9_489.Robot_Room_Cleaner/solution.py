@@ -2,7 +2,7 @@
 # This is the robot's control interface.
 # You should not implement it, or speculate about its implementation
 # """
-#class Robot:
+# class Robot:
 #    def move(self):
 #        """
 #        Returns true if the cell in front is open and robot moves into the cell.
@@ -30,12 +30,14 @@
 #        :rtype void
 #        """
 
+
 class Solution:
     def cleanRoom(self, robot):
         """
         :type robot: Robot
         :rtype: None
         """
+
         def goto(pos1, pos2):
             # robot always face up
             if pos2[0] - pos1[0] == 1:
@@ -83,8 +85,6 @@ class Solution:
             if visited[(nx, ny)]:
                 continue
             m = goto((x, y), (nx, ny))
-            if m: # moved to (nx, ny)
+            if m:  # moved to (nx, ny)
                 visited[(nx, ny)] = True
                 stack.append([nx, ny, 0])
-    
-

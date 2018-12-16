@@ -20,4 +20,3 @@ class Solution(object):
                     return False
                 d[2 * k] -= d[k]
         return True
-        

@@ -3,6 +3,7 @@
 # @return an integer
 # def read4(buf):
 
+
 class Solution(object):
     def read(self, buf, n):
         """
@@ -11,7 +12,7 @@ class Solution(object):
         :rtype: The number of characters read (int)
         """
         o = 0
-        temp = [''] * 4
+        temp = [""] * 4
         while n > 0:
             c = read4(temp)
             k = min(n, c)
@@ -20,6 +21,3 @@ class Solution(object):
             o += k
             n -= 4
         return o
-                
-            
-        

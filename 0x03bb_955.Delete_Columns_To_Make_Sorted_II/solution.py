@@ -13,12 +13,12 @@ class Solution(object):
             ki = []
             for j in range(m - 1):
                 if j not in s:
-                    continue # already sorted
+                    continue  # already sorted
                 if A[j][i] > A[j + 1][i]:
                     nd = True
                 elif A[j][i] < A[j + 1][i]:
                     ki.append(j)
-            #print(i, nd, ki)
+            # print(i, nd, ki)
             if nd:
                 d += 1
             else:

@@ -11,37 +11,33 @@ class RQ:
         end = min(self.hi, end)
         if (start == self.lo and end == self.hi) or len(self.children) == 0:
             return self.max
-        
+
         out = self.cur
         for c in self.children:
             if c.hi > start and end > c.lo:
-                out = max(
-                    out, c.query(start, end)
-                )
+                out = max(out, c.query(start, end))
 
         self.max = max(self.max, out)
         return out
-        
+
     def add(self, start, end, amount=1):
         start = max(self.lo, start)
         end = min(self.hi, end)
-        
+
         if start == self.lo and end == self.hi:
             self.cur = amount + self.cur
             self.max = amount + self.max
             for c in self.children:
                 c.add(start, end, amount)
             return
-        
+
         new_amount = amount + self.cur
         self.max = max(new_amount, self.max)
         if len(self.children) == 0:
-            self.children.append(
-                RQ(start, end, amount=new_amount)
-            )
+            self.children.append(RQ(start, end, amount=new_amount))
             self.max = max(self.max, new_amount)
             return
-        
+
         unmapped = []
         s = start
         for i, c in enumerate(self.children):
@@ -55,16 +51,14 @@ class RQ:
 
         if s < end:
             unmapped.append((s, end))
-        
-        new_children = [
-            RQ(i, j, amount=new_amount) for i, j in unmapped
-        ]
+
+        new_children = [RQ(i, j, amount=new_amount) for i, j in unmapped]
         self.children = sorted(self.children + new_children, key=lambda x: x.lo)
         self._rf()
 
     def _ol(self, itv1, itv2):
         return itv1[0] < itv2[1] and itv2[0] < itv1[1]
-               
+
     def _rf(self):
         if len(self.children) > 5:
 
@@ -92,15 +86,15 @@ class RQ:
             right.children = rightc
 
             self.children = [left, right]
-                
+
     def _print(self, level=0):
-        pl = lambda x: print('-'*level, *x)
+        pl = lambda x: print("-" * level, *x)
         pl([self.lo, self.hi, self.cur])
         for c in self.children:
-            c._print(level=level+1)
+            c._print(level=level + 1)
+
 
 class MyCalendar:
-
     def __init__(self):
         self.rq = RQ(0, 10 ** 9, amount=0)
 
@@ -114,7 +108,6 @@ class MyCalendar:
             self.rq.add(start, end)
             return True
         return False
-        
 
 
 # Your MyCalendar object will be instantiated and called as such:

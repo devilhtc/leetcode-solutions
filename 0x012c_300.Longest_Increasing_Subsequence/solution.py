@@ -1,5 +1,6 @@
 import random
 
+
 class Solution:
     def lengthOfLIS(self, nums):
         """
@@ -10,7 +11,7 @@ class Solution:
             return self.method1(nums)
         else:
             return self.method2(nums)
-    
+
     def method1(self, nums):
         if len(nums) == 0:
             return 0
@@ -23,7 +24,7 @@ class Solution:
                     curmax = max(curmax, dp[j] + 1)
             dp[i] = curmax
         return max(dp)
-    
+
     def method2(self, nums):
         if len(nums) == 0:
             return 0
@@ -48,5 +49,5 @@ class Solution:
                     else:
                         hi = mi
                 dp[lo] = n
-        
+
         return i + 1

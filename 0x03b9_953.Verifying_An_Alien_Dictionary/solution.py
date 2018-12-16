@@ -6,6 +6,7 @@ class Solution(object):
         :rtype: bool
         """
         order_dict = {c: i for i, c in enumerate(order)}
+
         def leq(a, b):
             if b.startswith(a):
                 return True
@@ -17,7 +18,7 @@ class Solution(object):
                 elif oa > ob:
                     return False
             return False
-            
+
         for i in range(len(words) - 1):
             if not leq(words[i], words[i + 1]):
                 return False
