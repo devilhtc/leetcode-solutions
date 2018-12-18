@@ -8,9 +8,9 @@ class Solution:
         l = len(ev)
         if l == 0:
             return 0
-        
+
         ev.sort(key=lambda x: (x[0], -x[1]))
-        
+
         dp = [0] * l
         i = 0
         dp[0] = ev[0][1]

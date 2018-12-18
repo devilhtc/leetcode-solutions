@@ -5,6 +5,7 @@
 #         self.left = None
 #         self.right = None
 
+
 class Solution:
     def longestConsecutive(self, root):
         """
@@ -16,7 +17,7 @@ class Solution:
         self.m = 0
         self.helper(root, root.val - 2, 0)
         return self.m
-        
+
     def helper(self, node, pv, pm):
         if node is None:
             return
@@ -25,7 +26,6 @@ class Solution:
         else:
             cm = 1
         self.m = max(self.m, cm)
-        
+
         for c in [node.left, node.right]:
             self.helper(c, node.val, cm)
-            

@@ -1,5 +1,4 @@
 class MovingAverage:
-
     def __init__(self, size):
         """
         Initialize your data structure here.
@@ -23,8 +22,6 @@ class MovingAverage:
             self.rs -= a
             self.size -= 1
         return self.rs / self.size
-            
-        
 
 
 # Your MovingAverage object will be instantiated and called as such:
