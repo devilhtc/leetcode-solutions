@@ -1,6 +1,3 @@
-# O(n) time O(1) memory DP solution
-
-
 class Solution(object):
     def numSubarrayBoundedMax(self, A, L, R):
         """
@@ -9,15 +6,39 @@ class Solution(object):
         :type R: int
         :rtype: int
         """
-        a = 0  # length of values <= R going back
-        b = 0  # distance of values in [L, R] going back
-        total = 0
-        for i in A:
-            if i > R:
-                a, b = 0, 0
-            elif i < L:
-                a, b = a + 1, b + (1 if b > 0 else 0)
+        self.A = A
+        self.L = L
+        self.R = R
+        p = -1
+        out = 0
+        for i, v in enumerate(A):
+            if v > R:
+                if p == -1:
+                    continue
+                else:
+                    out += self.getCombInRange(p, i - 1)
+                    p = -1
             else:
-                a, b = a + 1, 1
-            total += a - b + 1 if b > 0 else 0
-        return total
+                if p == -1:
+                    p = i
+                if i == len(A) - 1:
+                    out += self.getCombInRange(p, i)
+        return out
+        
+    def getCombInRange(self, i, j):
+        out = (j - i + 2) * (j - i + 1) // 2
+        p = -1
+        for k in range(i, j + 1):
+            if self.A[k] < self.L:
+                if p == -1:
+                    p = k
+                if k == j:
+                    out -= (k - p + 2) * (k - p + 1) // 2
+            else:
+                if p == -1:
+                    continue
+                else:
+                    out -= (k - p + 1) * (k - p) // 2
+                    p = -1
+        return out
+        
