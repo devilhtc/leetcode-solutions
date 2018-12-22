@@ -24,7 +24,7 @@ class Solution(object):
                 if i == len(A) - 1:
                     out += self.getCombInRange(p, i)
         return out
-        
+
     def getCombInRange(self, i, j):
         out = (j - i + 2) * (j - i + 1) // 2
         p = -1
@@ -41,4 +41,3 @@ class Solution(object):
                     out -= (k - p + 1) * (k - p) // 2
                     p = -1
         return out
-        

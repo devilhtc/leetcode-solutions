@@ -15,15 +15,15 @@ class Solution(object):
         for w in wordList:
             wl = list(w)
             for i, c in enumerate(w):
-                wl[i] = '_'
-                s = ''.join(wl)
+                wl[i] = "_"
+                s = "".join(wl)
                 w2s[w].append(s)
                 s2w[s].append(w)
                 wl[i] = c
-        
+
         wstep = collections.defaultdict(int)
         wstep[beginWord] = 1
-        
+
         queue = collections.deque([beginWord])
         while len(queue) > 0:
             cw = queue.popleft()
@@ -36,6 +36,5 @@ class Solution(object):
                         return cstep + 1
                     wstep[nw] = cstep + 1
                     queue.append(nw)
-                    
+
         return 0
-        

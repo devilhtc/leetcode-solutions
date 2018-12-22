@@ -6,8 +6,9 @@ class Solution:
         """
         for r in A:
             self.processRow(r)
-        
+
         return A
+
     def processRow(self, row):
         i = 0
         j = len(row) - 1

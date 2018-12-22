@@ -10,7 +10,7 @@ class Solution:
         for i in range(len(A)):
             dA[A[i]].append(i)
             dB[B[i]].append(i)
-        
+
         out = [0] * len(A)
         for k in dA:
             ai = dA[k]
@@ -18,5 +18,3 @@ class Solution:
             for i in range(len(ai)):
                 out[ai[i]] = bi[i]
         return out
-            
-        
