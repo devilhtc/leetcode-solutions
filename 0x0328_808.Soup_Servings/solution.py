@@ -57,4 +57,36 @@ class Solution:
         self.memo[(A, B)] = out
         return out
 
+
+class Solution2:
+    def soupServings(self, N):
+        """
+        :type N: int
+        :rtype: float
+        """
+        if N >= 5300:
+            return 1.0
+        self.memo = {}
+        return self.dp(N, N)
+
+
+    def dp(self, A, B):
+        if A <= 0 and B <= 0:
+            return 0.5
+        if A <= 0:
+            return 1.0
+        if B <= 0:
+            return 0.0
+        if (A, B) in self.memo:
+            return self.memo[(A, B)]
         
+        out = 0.0
+        for r in [
+            self.dp(A - 100, B),
+            self.dp(A - 75, B - 25),
+            self.dp(A - 50, B - 50),
+            self.dp(A - 25, B - 75)
+        ]:
+            out = out + 0.25 * r
+        self.memo[(A, B)] = out
+        return out
