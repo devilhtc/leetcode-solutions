@@ -6,11 +6,13 @@ def _r(a):
         x, y = y, x % y
     return (_u // x, _d // x)
 
+
 def _add(a, b):
     au, ad = a
     bu, bd = b
     o = (au * bd + ad * bu, ad * bd)
     return _r(o)
+
 
 def _mul(a, b):
     au, ad = a
@@ -39,21 +41,15 @@ class Solution:
             return (0, 1)
         if (A, B) in self.memo:
             return self.memo[(A, B)]
-        
+
         out = (0, 1)
         for r in [
             self.dp(A - 100, B),
             self.dp(A - 75, B - 25),
             self.dp(A - 50, B - 50),
-            self.dp(A - 25, B - 75)
+            self.dp(A - 25, B - 75),
         ]:
-            out = _add(
-                out,
-                _mul(
-                    r,
-                    (1, 4)
-                )
-            )
+            out = _add(out, _mul(r, (1, 4)))
         self.memo[(A, B)] = out
         return out
 
@@ -69,7 +65,6 @@ class Solution2:
         self.memo = {}
         return self.dp(N, N)
 
-
     def dp(self, A, B):
         if A <= 0 and B <= 0:
             return 0.5
@@ -79,13 +74,13 @@ class Solution2:
             return 0.0
         if (A, B) in self.memo:
             return self.memo[(A, B)]
-        
+
         out = 0.0
         for r in [
             self.dp(A - 100, B),
             self.dp(A - 75, B - 25),
             self.dp(A - 50, B - 50),
-            self.dp(A - 25, B - 75)
+            self.dp(A - 25, B - 75),
         ]:
             out = out + 0.25 * r
         self.memo[(A, B)] = out

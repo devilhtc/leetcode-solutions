@@ -12,4 +12,3 @@ class Solution:
         for i in range(2, n):
             s, d = d, (d + s) * (k - 1)
         return s + d
-        

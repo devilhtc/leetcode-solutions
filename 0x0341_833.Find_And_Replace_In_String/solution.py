@@ -11,8 +11,8 @@ class Solution:
             return S
         out = []
         z = sorted(list(zip(indexes, sources, targets)))
-        out.append(S[:z[0][0]])
-        
+        out.append(S[: z[0][0]])
+
         for i, v in enumerate(z):
             idx, sou, tar = v
             m = True
@@ -23,8 +23,8 @@ class Solution:
             nidx = z[i + 1][0] if i < len(z) - 1 else len(S)
             if m:
                 out.append(tar)
-                out.append(S[idx + len(sou): nidx])
+                out.append(S[idx + len(sou) : nidx])
             else:
-                out.append(S[idx: nidx])
-        
-        return ''.join(out)
+                out.append(S[idx:nidx])
+
+        return "".join(out)
