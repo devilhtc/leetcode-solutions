@@ -5,14 +5,14 @@ class Solution:
         :type target: int
         :rtype: int
         """
-        
+
         if len(nums) == 0:
             return -1
         if nums[0] == target:
             return 0
         if nums[-1] == target:
             return len(nums) - 1
-        
+
         lo = 0
         hi = len(nums) - 1
         while hi > lo:
@@ -23,6 +23,5 @@ class Solution:
                 lo = mi + 1
             else:
                 hi = mi
-        
+
         return -1
-        

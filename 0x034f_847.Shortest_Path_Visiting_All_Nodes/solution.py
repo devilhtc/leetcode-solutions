@@ -8,7 +8,7 @@ class Solution:
             return 0
         n = len(graph)
         end = (1 << n) - 1
-        
+
         q = [(1 << i, i, 0) for i in range(n)]
         visited = set([ele[:2] for ele in q])
         i = 0
