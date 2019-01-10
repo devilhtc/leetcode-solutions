@@ -32,8 +32,6 @@ def createProblem(args, verbose=False):
     if len(args) > 0 and args[0] == "-j":
         ext = ".java"
         args = args[1:]
-    args = [s.lower() for s in args]
-    args = [s.title() for s in args]
     dirname = (
         toHexString(int(float(args[0])), HEX_LEN)
         + "_"
