@@ -1,5 +1,4 @@
 *.DS_Store
 .vscode/
 */__pycache__/
-temp.py
-temp2.py
+temp*.py
