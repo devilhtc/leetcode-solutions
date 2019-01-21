@@ -1,19 +1,54 @@
-class Solution(object):
-    def lengthOfLongestSubstring(self, s):
+class Solution:
+    def findMedianSortedArrays(self, nums1, nums2):
         """
-        :type s: str
-        :rtype: int
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
         """
-        counts = {}
-        i = 0
-        ml = 0
-        for j in range(len(s)):
-            # take in the jth character
-            # increase i until counts[s[i]] = 1
-            # length is then j - i + 1
-            counts[s[j]] = counts.get(s[j], 0) + 1
-            while counts[s[j]] > 1:
-                counts[s[i]] -= 1
-                i += 1
-            ml = max(j - i + 1, ml)
-        return ml
+        if len(nums1) == 0 and len(nums2) == 0:
+            return None
+
+        def med(arr):
+            if len(arr) % 2 == 1:
+                return arr[len(arr) // 2]
+            else:
+                return (arr[len(arr) // 2 - 1] + arr[len(arr) // 2]) / 2
+
+        if len(nums1) == 0:
+            return med(nums2)
+        if len(nums2) == 0:
+            return med(nums1)
+
+        if len(nums1) < len(nums2):
+            return self.findMedianSortedArrays(nums2, nums1)
+
+        # now nums1 is the longer one
+        total_length = len(nums1) + len(nums2)
+        k = total_length // 2
+        lo = k - len(nums2)
+        hi = k
+        out = None
+        while hi >= lo:
+            mi = (hi + lo) // 2
+            l1, r1 = (
+                float("-inf") if mi == 0 else nums1[mi - 1],
+                float("inf") if (mi == k and len(nums1) == k) else nums1[mi],
+            )
+            len_rest = k - mi
+            l2, r2 = (
+                float("-inf") if len_rest == 0 else nums2[len_rest - 1],
+                float("inf") if len_rest == len(nums2) else nums2[len_rest],
+            )
+            if l1 <= r2 and l2 <= r1 or lo == hi:
+                out = (
+                    min(r1, r2)
+                    if total_length % 2 == 1
+                    else (max(l1, l2) + min(r1, r2)) / 2
+                )
+                break
+            elif l1 >= r2:
+                hi = mi - 1
+            else:
+                lo = mi + 1
+
+        return out
