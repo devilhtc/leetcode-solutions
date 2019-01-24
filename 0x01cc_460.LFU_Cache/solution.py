@@ -172,7 +172,6 @@ class LFUCache:
                     self.head = count_node
                     self.tail = count_node
                 else:
-                    print("here")
                     old_tail = self.tail
                     old_tail.next = count_node
                     count_node.prev = old_tail
