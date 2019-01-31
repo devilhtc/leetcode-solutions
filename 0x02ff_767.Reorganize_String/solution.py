@@ -1,22 +1,23 @@
-from collections import Counter
-
-# Counter solution: can use counter.most_common(m) method
-class Solution(object):
+class Solution:
     def reorganizeString(self, S):
         """
         :type S: str
         :rtype: str
         """
-        ctr = Counter(S)
-        if ctr.most_common(1)[0][1] > (len(S) + 1) / 2:
+        mc = 0
+        d = collections.defaultdict(int)
+        for c in S:
+            d[c] += 1
+            mc = max(d[c], mc)
+        if not mc <= (len(S) + 1) // 2:
             return ""
-        out = []
-        for i in range(len(S)):
-            mc = ctr.most_common(2)
-            c = mc[0][0]
-            if len(out) > 0:
-                if c == out[-1]:
-                    c = mc[1][0]
-            out.append(c)
-            ctr.subtract(Counter(c))
+
+        out = [None] * len(S)
+        i = 0
+        for _, char, count in sorted([(-v, k, v) for k, v in d.items()]):
+            for _ in range(count):
+                out[i] = char
+                i += 2
+                if i >= len(S):
+                    i = 1
         return "".join(out)
