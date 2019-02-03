@@ -1,19 +1,5 @@
-ranges = [
-    (2000, 2017),
-    (0, 12),
-    (0, 31),
-    (0, 23),
-    (0, 59),
-    (0, 59)
-]
-levels = {
-    'Year': 0,
-    'Month': 1,
-    'Day': 2,
-    'Hour': 3,
-    'Minute': 4,
-    'Second': 5
-}
+ranges = [(2000, 2017), (0, 12), (0, 31), (0, 23), (0, 59), (0, 59)]
+levels = {"Year": 0, "Month": 1, "Day": 2, "Hour": 3, "Minute": 4, "Second": 5}
 
 
 class DLTN:
@@ -24,7 +10,7 @@ class DLTN:
         self.n = None
         self.l = None
         self.r = None
-    
+
     def insert(self, k, v):
         if k < self.k:
             if self.l is None:
@@ -38,14 +24,15 @@ class DLTN:
                 return self.r
             else:
                 return self.r.insert(k, v)
-    
+
+
 class DLLT:
     def __init__(self):
         self.root = None
         self.head = None
         self.tail = None
         self.k2node = {}
-    
+
     def insert(self, k, v):
         if self.root is None:
             self.root = DLTN(k, v)
@@ -53,11 +40,11 @@ class DLLT:
             self.tail = self.root
             self.k2node[k] = self.root
             return
-        
+
         if k in self.k2node:
             self.k2node.vs.append(v)
             return
-        
+
         # key is not found
         cur = self.root
         l_closest = None
@@ -72,7 +59,7 @@ class DLLT:
                     cur = cur.r
                 else:
                     cur = cur.l
-                    
+
         cur = self.root
         r_closest = None
         if not k > self.tail.k:
@@ -86,7 +73,7 @@ class DLLT:
                     cur = cur.l
                 else:
                     cur = cur.r
-                    
+
         new_node = self.root.insert(k, v)
         self.k2node[k] = new_node
         if not l_closest:
@@ -104,7 +91,7 @@ class DLLT:
             new_node.p = l_closest
             r_closest.p = new_node
             new_node.n = r_closest
-    
+
     def range_query(self, s, e):
         if s > e or self.root is None:
             return []
@@ -142,7 +129,7 @@ class DLLT:
                     node = node.r
                 else:
                     node = node.l
-            
+
         if snode is None and enode is None:
             return []
         if snode is None or enode is None:
@@ -158,8 +145,8 @@ class DLLT:
         for v in enode.vs:
             out.append(v)
         return out
-                    
-    
+
+
 class LogSystem:
     def __init__(self):
         self.dllt = DLLT()
@@ -186,8 +173,8 @@ class LogSystem:
         return self.dllt.range_query(sk, ek)
 
     def _ts2k(self, ts):
-        return tuple([int(ele) for ele in ts.split(':')])
-        
+        return tuple([int(ele) for ele in ts.split(":")])
+
     def _truncate(self, k, gra, to_start):
         i = levels[gra]
         out = []
@@ -196,6 +183,7 @@ class LogSystem:
         for j in range(i + 1, 6):
             out.append(ranges[j][0 if to_start else 1])
         return tuple(out)
+
 
 # Your LogSystem object will be instantiated and called as such:
 # obj = LogSystem()
