@@ -23,7 +23,7 @@ class Solution:
                     else:
                         return helper(mi + 1, hi)
                 else:
-                    if nums[mi] > nums[lo]:  # left part sorted
+                    if nums[mi] >= nums[lo]:  # left part sorted
                         if nums[lo] <= target < nums[mi]:
                             return helper(lo, mi - 1)
                         else:
@@ -49,9 +49,9 @@ class TestSIRA2(unittest.TestCase):
             (([2, 3, 4, 5, 6, 7, 12, -2, 2], 1), False),
         ]
         self.random_testcases = [
-            self.generate_test_case(random.randint(5, 1000)) for _ in range(20)
+            self.generate_test_case(random.randint(2, 1000)) for _ in range(20)
         ] + [
-            self.generate_test_case(random.randint(5, 1000), force_true=True)
+            self.generate_test_case(random.randint(2, 1000), force_true=True)
             for _ in range(20)
         ]
 
