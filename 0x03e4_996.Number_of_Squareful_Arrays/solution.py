@@ -4,7 +4,7 @@ from functools import lru_cache
 class Solution:
     def numSquarefulPerms(self, A: "List[int]") -> "int":
         l = len(A)
-        out = [0]
+        out = [0]  # global variable to keep track of total number of permutations
         c = dict(collections.Counter(A))  # element - counts
         s = []  # stack
 
