@@ -22,7 +22,6 @@ class Solution:
             return list(range(i, j, 1 if i < j else -1))
 
         ri, rj = fr()
-        out = 0
 
         return (
             fp(rangel(ri + 1, 8), rj)
