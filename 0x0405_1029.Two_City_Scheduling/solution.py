@@ -3,15 +3,12 @@ class Solution:
         N = len(costs) // 2
         base = 0
         A, B = [], []
-        eq = 0
         for a, b in costs:
             base += min(a, b)
             if a > b:
                 A.append(a - b)
             elif b > a:
                 B.append(b - a)
-            else:
-                eq += 1
 
         def calc_surplus(l):
             l.sort()
