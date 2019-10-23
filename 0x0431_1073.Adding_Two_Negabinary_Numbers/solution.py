@@ -1,4 +1,3 @@
-# solution by HungWei-Andy@
 class Solution:
     def addNegabinary(self, arr1: List[int], arr2: List[int]) -> List[int]:
         def nbadd(a, b, c):

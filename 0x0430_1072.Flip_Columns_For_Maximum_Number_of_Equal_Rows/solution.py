@@ -11,6 +11,7 @@ class Solution:
         return max(d.values())
 
 
+# one-liner
 class Solution2:
     def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
         return max(
